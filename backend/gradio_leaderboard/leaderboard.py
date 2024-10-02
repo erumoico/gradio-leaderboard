@@ -204,7 +204,7 @@ class Leaderboard(Component):
     @staticmethod
     def _get_column_filter_config(column: str | ColumnFilter, value: pd.DataFrame):
         column_name = column if isinstance(column, str) else column.column
-        best_filter_type = Leaderboard._get_best_filter_type(column_name, value)
+        best_filter_type = Leaderboard._get_best_filter_type(column_name, value) if isinstance(column, str) or not column.type else column.type
         min_val = None
         max_val = None
         if best_filter_type == "slider":
