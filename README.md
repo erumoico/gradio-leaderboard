@@ -15,6 +15,8 @@ header: mini
 
 # gradio_leaderboard
 
+This is special version for https://huggingface.co/spaces/CZLC/BenCzechMark
+
 ## 🔋⚡️🥇 Super fast, batteries included Leaderboards with minimal code.
 <img alt="Static Badge" src="https://img.shields.io/badge/version%20-%200.0.2%20-%20orange">  
 
