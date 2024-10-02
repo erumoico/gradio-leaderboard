@@ -73,7 +73,7 @@ class Leaderboard(Component):
 
     def __init__(
         self,
-        value: pd.DataFrame | None = None,
+        value: pd.DataFrame | Styler | None = None,
         *,
         datatype: str | list[str] = "str",
         search_columns: list[str] | SearchColumns | None = None,
@@ -123,20 +123,26 @@ class Leaderboard(Component):
             line_breaks: If True (default), will enable Github-flavored Markdown line breaks in chatbot messages. If False, single new lines will be ignored. Only applies for columns of type "markdown."
             column_widths: An optional list representing the width of each column. The elements of the list should be in the format "100px" (ints are also accepted and converted to pixel values) or "10%". If not provided, the column widths will be automatically determined based on the content of the cells. Setting this parameter will cause the browser to try to fit the table within the page width.
         """
+        from pandas.io.formats.style import Styler
+        
         if value is None:
             raise ValueError("Leaderboard component must have a value set.")
+        if isinstance(value, Styler):
+            df = value.data
+        else:
+            df = value
         self.wrap = wrap
-        self.headers = [str(s) for s in value.columns]
+        self.headers = [str(s) for s in df.columns]
         self.datatype = datatype
         self.search_columns = self._get_search_columns(search_columns)
         self.bool_checkboxgroup_label = bool_checkboxgroup_label
-        self.select_columns_config = self._get_select_columns(select_columns, value)
-        self.filter_columns = self._get_column_filter_configs(filter_columns, value)
+        self.select_columns_config = self._get_select_columns(select_columns, df)
+        self.filter_columns = self._get_column_filter_configs(filter_columns, df)
         self.raise_error_if_incorrect_config()
 
         self.hide_columns = hide_columns or []
         self.col_count = (len(self.headers), "fixed")
-        self.row_count = (value.shape[0], "fixed")
+        self.row_count = (df.shape[0], "fixed")
 
         if latex_delimiters is None:
             latex_delimiters = [{"left": "$$", "right": "$$", "display": True}]
