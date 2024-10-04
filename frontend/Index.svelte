@@ -13,7 +13,7 @@
 	import Checkboxgroup from "./shared/Checkboxgroup.svelte";
 	import Simpletextbox from "./shared/SimpleTextbox.svelte";
 	import { BaseMultiselect } from "@gradio/dropdown";
-    import RangeSlider from "./shared/RangeSlider.svelte";
+	import RangeSlider from "./shared/RangeSlider.svelte";
 
 	export let headers: Headers = [];
 	export let elem_id = "";
@@ -106,7 +106,7 @@
 		return val >= min && val <= max;
 	}
 
- 	function filter_column(column: ColumnFilter, value: any[] | any){
+	function filter_column(column: ColumnFilter, value: any[] | any){
 		if (column.type === "checkbox" && !value) {
 			return Array(original_data.length).fill(true);
 		}
@@ -360,5 +360,7 @@
 		{line_breaks}
 		{column_widths}
 		{hide_columns}
+		{elem_id}
+		{elem_classes}
 	/>
 </Row>

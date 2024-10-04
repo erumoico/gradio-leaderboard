@@ -40,6 +40,9 @@
 	export let column_widths: string[] = [];
 	export let hide_columns: string[] = [];
 
+	export let elem_id = "";
+	export let elem_classes: string[] = [];
+
 	let selected: false | [number, number] = false;
 	export let display_value: string[][] | null = null;
 	export let styling: string[][] | null = null;
@@ -644,7 +647,7 @@
 	on:resize={() => set_cell_widths()}
 />
 
-<div class:label={label && label.length !== 0} use:copy>
+<div class="{elem_classes}" class:label={label && label.length !== 0} use:copy>
 	{#if label && label.length !== 0 && show_label}
 		<p>
 			{label}
